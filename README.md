@@ -45,7 +45,7 @@ pnpm --filter web dev
 
 ### Week 1 — Core Data Layer + Synchronous Checker
 - [x] Day 1 — Monorepo setup (pnpm workspaces), Next.js UI pages, TypeScript + ESLint + .env config
-- [ ] Day 2 — Docker + PostgreSQL + TimescaleDB, migration files
+- [x] Day 2 — Docker + PostgreSQL + TimescaleDB, migration files
 - [ ] Day 3 — Auth service (register/login, bcrypt, RS256 JWT)
 - [ ] Day 4–5 — Monitor CRUD API + Zod validation + integration tests
 - [ ] Day 5–7 — Synchronous checker with node-cron + Axios
@@ -69,4 +69,4 @@ pnpm --filter web dev
 ---
 
 ## 📌 Current Status
-> **Week 1 — Day 1 complete.** Monorepo foundation set up. Starting DB layer next.
+> **Week 1 — Day 2 complete.** Database layer running in Docker with TimescaleDB hypertable. API connected to DB via connection pool. Starting Auth service next.
