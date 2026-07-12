@@ -47,8 +47,8 @@ pnpm --filter web dev
 - [x] Day 1 — Monorepo setup (pnpm workspaces), Next.js UI pages, TypeScript + ESLint + .env config
 - [x] Day 2 — Docker + PostgreSQL + TimescaleDB, migration files
 - [x] Day 3 — Auth service (register/login, bcrypt, RS256 JWT)
-- [ ] Day 4–5 — Monitor CRUD API + Zod validation + integration tests
-- [ ] Day 5–7 — Synchronous checker with node-cron + Axios
+- [x] Day 4–5 — Monitor CRUD API + Zod validation + integration tests
+- [x] Day 5–7 — Synchronous checker with node-cron + Axios
 
 ### Week 2 — Kafka + Redis Layer
 - [ ] Kafka integration (check-results, alert-events, metrics-raw topics)
@@ -69,4 +69,4 @@ pnpm --filter web dev
 ---
 
 ## 📌 Current Status
-> **Week 1 — Day 3 complete.** Auth service running with RS256 JWT. Register/login endpoints live. Run `pnpm db` to start Postgres, `pnpm dev` to start the API.
+> **Week 1 — Day 5 complete.** Monitor CRUD API and Synchronous Checker live. Integration tests passing. Run `pnpm db` to start Postgres, `pnpm dev` to start the API.
