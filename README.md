@@ -29,14 +29,26 @@ streampulse/
 # Install dependencies
 pnpm install
 
-# Start database
-docker compose up -d
+# Start all infrastructure (Postgres + Kafka)
+pnpm infra
+
+# Start only the database
+pnpm db
 
 # Run API
-pnpm --filter api dev
+pnpm dev:api
 
 # Run Web
-pnpm --filter web dev
+pnpm dev:web
+
+# Run both API + Web
+pnpm dev
+
+# List Kafka topics
+pnpm kafka:topics
+
+# Consume from a Kafka topic
+pnpm kafka:console check-results
 ```
 ---
 
@@ -45,16 +57,16 @@ pnpm --filter web dev
 
 ### Week 1 — Core Data Layer + Synchronous Checker
 - [x] Day 1 — Monorepo setup (pnpm workspaces), Next.js UI pages, TypeScript + ESLint + .env config
-- [ ] Day 2 — Docker + PostgreSQL + TimescaleDB, migration files
-- [ ] Day 3 — Auth service (register/login, bcrypt, RS256 JWT)
-- [ ] Day 4–5 — Monitor CRUD API + Zod validation + integration tests
-- [ ] Day 5–7 — Synchronous checker with node-cron + Axios
+- [x] Day 2 — Docker + PostgreSQL + TimescaleDB, migration files
+- [x] Day 3 — Auth service (register/login, bcrypt, RS256 JWT)
+- [x] Day 4–5 — Monitor CRUD API + Zod validation + integration tests
+- [x] Day 5–7 — Synchronous checker with node-cron + Axios
 
 ### Week 2 — Kafka + Redis Layer
-- [ ] Kafka integration (check-results, alert-events, metrics-raw topics)
-- [ ] Metrics Worker (batch insert consumer)
-- [ ] Redis rate limiter + cache + pub/sub setup
-- [ ] Cache Warmer Worker
+- [x] Day 1 — Kafka integration (Bitnami KRaft mode, check-results/alert-events/metrics-raw topics)
+- [ ] Day 2 — Refactor Checker to Kafka producer + Metrics Worker (batch insert consumer)
+- [ ] Day 3–4 — Redis rate limiter + cache + pub/sub setup
+- [ ] Day 5–7 — Cache Warmer Worker
 
 ### Week 3 — Alerting + SSE + Dashboard
 - [ ] Alert Worker with 3-failure debounce logic
@@ -69,4 +81,4 @@ pnpm --filter web dev
 ---
 
 ## 📌 Current Status
-> **Week 1 — Day 1 complete.** Monorepo foundation set up. Starting DB layer next.
+> **Week 2 — Day 1 complete.** Kafka broker (KRaft mode) and topic auto-creation added to docker-compose. Run `pnpm infra` to start Postgres + Kafka. Next: refactor checker to publish through Kafka instead of writing DB directly.
