@@ -2,3 +2,7 @@ packages:
   - 'apps/*'
   - 'db'
   - 'infra'
+allowBuilds:
+  bcrypt: true
+  sharp: true
+  unrs-resolver: true
