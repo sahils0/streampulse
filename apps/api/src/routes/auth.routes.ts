@@ -1,8 +1,10 @@
 import { Router } from 'express';
 import { register, login } from '../services/auth.service';
-import { authMiddleware } from "../middleware/auth.middleware"
+import { authMiddleware } from '../middleware/auth.middleware';
+import { authRateLimiter } from '../middleware/rateLimiter';
 
 const router = Router();
+router.use(authRateLimiter);
 
 router.post('/register', async (req, res) => {
     try {

@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { z } from 'zod';
 import { authMiddleware } from '../middleware/auth.middleware';
+import { apiRateLimiter } from '../middleware/rateLimiter';
 import * as monitorService from '../services/monitor.service';
 
 const router = Router();
@@ -19,6 +20,7 @@ const updateMonitorSchema = monitorSchema.partial().extend({
 });
 
 router.use(authMiddleware);
+router.use(apiRateLimiter);
 
 router.post('/', async (req, res) => {
     try {

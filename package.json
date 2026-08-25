@@ -8,7 +8,9 @@
         "db": "docker compose -f infra/docker/docker-compose.yml up -d postgres",
         "db:down": "docker compose -f infra/docker/docker-compose.yml down postgres",
         "infra": "docker compose -f infra/docker/docker-compose.yml up -d",
+        "infra:up": "docker compose -f infra/docker/docker-compose.yml up -d",
         "infra:down": "docker compose -f infra/docker/docker-compose.yml down",
+        "infra:nuke": "docker compose -f infra/docker/docker-compose.yml down -v",
         "kafka:topics": "docker compose -f infra/docker/docker-compose.yml exec kafka /opt/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --list",
         "kafka:console": "docker compose -f infra/docker/docker-compose.yml exec kafka /opt/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic",
         "kafka:reset": "docker compose -f infra/docker/docker-compose.yml down -v"

@@ -29,7 +29,7 @@ streampulse/
 # Install dependencies
 pnpm install
 
-# Start all infrastructure (Postgres + Kafka)
+# Start all infrastructure (Postgres + Kafka + Redis)
 pnpm infra
 
 # Start only the database
@@ -64,9 +64,9 @@ pnpm kafka:console check-results
 
 ### Week 2 — Kafka + Redis Layer
 - [x] Day 1 — Kafka integration (Bitnami KRaft mode, check-results/alert-events/metrics-raw topics)
-- [ ] Day 2 — Refactor Checker to Kafka producer + Metrics Worker (batch insert consumer)
-- [ ] Day 3–4 — Redis rate limiter + cache + pub/sub setup
-- [ ] Day 5–7 — Cache Warmer Worker
+- [x] Day 2 — Refactor Checker to Kafka producer + Metrics Worker (batch insert consumer)
+- [x] Day 3–4 — Redis rate limiter + cache + pub/sub setup
+- [x] Day 5–7 — Cache Warmer Worker
 
 ### Week 3 — Alerting + SSE + Dashboard
 - [ ] Alert Worker with 3-failure debounce logic
@@ -81,4 +81,4 @@ pnpm kafka:console check-results
 ---
 
 ## 📌 Current Status
-> **Week 2 — Day 1 complete.** Kafka broker (KRaft mode) and topic auto-creation added to docker-compose. Run `pnpm infra` to start Postgres + Kafka. Next: refactor checker to publish through Kafka instead of writing DB directly.
+> **Week 2 complete.** All data pipeline infrastructure is in place: Kafka producer/consumer (check-results), batch-insert Metrics Worker, Redis rate limiter (sliding window), read-through cache with 30s TTL, pub/sub event bus, and Cache Warmer Worker (scheduled + event-driven). Run `pnpm infra` to start Postgres + Kafka + Redis. Next: Week 3 — Alert Worker, SSE endpoint, and live dashboard.

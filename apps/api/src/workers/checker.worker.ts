@@ -1,6 +1,7 @@
 import cron from 'node-cron';
 import axios from 'axios';
 import { pool } from '../db/pool';
+import { publishCheckResult } from '../kafka/producer';
 
 export function startChecker() {
     // Run every minute
@@ -30,7 +31,7 @@ async function checkMonitor(monitor: any) {
             method: monitor.method,
             url: monitor.url,
             timeout: monitor.timeout_ms,
-            validateStatus: () => true, // Don't throw on any status code
+            validateStatus: () => true,
         });
 
         statusCode = response.status;
@@ -43,13 +44,16 @@ async function checkMonitor(monitor: any) {
     }
 
     try {
-        await pool.query(
-            `INSERT INTO check_results (monitor_id, status_code, response_ms, status_ok, error_msg)
-             VALUES ($1, $2, $3, $4, $5)`,
-            [monitor.id, statusCode, responseMs, statusOk, errorMsg]
-        );
-        console.log(`Check for ${monitor.url}: ${statusOk ? 'OK' : 'FAIL'} (${responseMs}ms)`);
+        await publishCheckResult({
+            monitor_id: monitor.id,
+            status_code: statusCode,
+            response_ms: responseMs,
+            status_ok: statusOk,
+            error_msg: errorMsg,
+            checked_at: new Date().toISOString(),
+        });
+        console.log(`Check for ${monitor.url}: ${statusOk ? 'OK' : 'FAIL'} (${responseMs}ms) → Kafka`);
     } catch (error) {
-        console.error(`Error saving check result for ${monitor.id}:`, error);
+        console.error(`Error publishing check result for ${monitor.id}:`, error);
     }
 }
